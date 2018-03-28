@@ -1,0 +1,25 @@
+	AREA text1,CODE,READONLY
+		
+	ENTRY
+
+	MOV r0,#0 		;i=0
+	MOV r1,#0 		;counter=0
+	
+	LDR r2,=sayiList	;diziyi load ediyoruz
+	
+for
+	CMP r0,#15		;i < 15 => dizi boyutu kadar dönüyoruz yani
+	BEQ forEnd		;döngüden cikiyoruz
+	LDR r3,[r2,r0,LSL#2]	;sayiList[i] => diziden i. Elemanı load ediyoruz 
+	AND r4,r3,#1		;1 ile and işlemine sokuyoruz
+	CMP r4,#1		;and işlemine soktuğumuz degerin tek mi diye bakıyoruz
+	BEQ tek			;branch equal
+	ADD r1,r1,#1 		;counter++ yani tek sayı adetini arttırıyoruz
+tek	
+	ADD r0,r0,#1		;i++
+	B loop
+forEnd	
+
+sayiList DCD 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15
+	
+	END
